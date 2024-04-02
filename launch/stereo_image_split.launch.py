@@ -26,8 +26,8 @@ def generate_launch_description():
                 name='camera',
                 extra_arguments=[{'use_intra_process_comms': True}],
                 parameters=[{'format': 'YUYV'},
-                            {'width':'2560'},
-                            {'height':'800'}],
+                            {'width': 2560},
+                            {'height': 800}],
             )
         ],
     )
