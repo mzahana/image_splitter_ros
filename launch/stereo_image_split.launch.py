@@ -15,18 +15,20 @@ def generate_launch_description():
                 name='stereo_image_splitter',
                 extra_arguments=[{'use_intra_process_comms': True}],
                 remappings=[
-                    ('image_raw', '//camera/image_raw'),
+                    ('stitched_images', '/camera/image_raw'),
                     ('left_image', '/left_image'),
                     ('right_image', '/right_image'),
                 ]
             ),
-            # ComposableNode(
-            #     package='stereo_image_processor',
-            #     plugin='StitchedImagePublisher',
-            #     name='stitched_image_publisher',
-            #     extra_arguments=[{'use_intra_process_comms': True}],
-            #     parameters=[{'image_topic': '/stitched_images'}],
-            # )
+            ComposableNode(
+                package='camera_ros',
+                plugin='camera::CameraNode',
+                name='camera',
+                extra_arguments=[{'use_intra_process_comms': True}],
+                parameters=[{'format': 'YUYV'},
+                            {'width':'2560'},
+                            {'height':'800'}],
+            )
         ],
     )
 

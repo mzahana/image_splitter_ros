@@ -42,8 +42,8 @@ private:
     int height = cv_ptr->image.rows;
 
     // Split the stitched image into left and right images
-    cv::Mat left_image = cv_ptr->image(cv::Rect(0, 0, width, height));
-    cv::Mat right_image = cv_ptr->image(cv::Rect(width, 0, width, height));
+    cv::Mat right_image = cv_ptr->image(cv::Rect(0, 0, width, height));
+    cv::Mat left_image = cv_ptr->image(cv::Rect(width, 0, width, height));
 
     // Prepare left and right images for publishing
     // Ensure encoding remains the same
