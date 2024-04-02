@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>image_splitter_ros</name>
+  <version>0.0.1</version>
+  <description>A package for splitting single ros2 image topic into multiple image topics.</description>
+  <maintainer email="mohamedashraf123@gmail.com">Mohame Abdelkader</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>image_transport</depend>
+  <depend>opencv</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
