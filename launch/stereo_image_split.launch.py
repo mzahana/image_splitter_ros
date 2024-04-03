@@ -15,7 +15,7 @@ def generate_launch_description():
                 name='stereo_image_splitter',
                 parameters=[
                     {'is_grey': True},
-                ]
+                ],
                 extra_arguments=[{'use_intra_process_comms': True}],
                 remappings=[
                     ('stitched_images', '/camera/image_raw'),
