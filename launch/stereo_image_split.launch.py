@@ -13,6 +13,9 @@ def generate_launch_description():
                 package='image_splitter_ros',
                 plugin='StereoImageSplitter',
                 name='stereo_image_splitter',
+                parameters=[
+                    {'is_grey': True},
+                ]
                 extra_arguments=[{'use_intra_process_comms': True}],
                 remappings=[
                     ('stitched_images', '/camera/image_raw'),
@@ -31,7 +34,7 @@ def generate_launch_description():
                             {'AeEnable': False},
                             {'Contrast': 1.5 },
                             {'ExposureValue': 0.0},
-                            {'is_grey': True}]
+                ]
             )
         ],
     )
