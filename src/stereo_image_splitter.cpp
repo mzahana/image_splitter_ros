@@ -41,15 +41,22 @@ private:
         if (msg->encoding == "yuv422_yuy2") {
             // Convert YUV422 (YUY2) to BGR for processing
             cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_YUV2BGR_YUY2);
-        } else if (msg->encoding != "bgr8" && !is_grey_) {
+        } else if (msg->encoding == "rgb8") {
             // Assume the source is BGR if not grayscale and not YUY2. Adjust if your camera uses RGB.
+            // processed_image = cv_ptr->image.clone();
+            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_RGB2BGR);
+        } else if (msg->encoding == "rgba8") {
+            // Assume the source is BGR if not grayscale and not YUY2. Adjust if your camera uses RGB.
+            // processed_image = cv_ptr->image.clone();
+            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_RGBA2BGR);
+        } else{
             processed_image = cv_ptr->image.clone();
         }
 
         // Additional check for grayscale conversion
         if (is_grey_) {
             if (processed_image.channels() > 1) {
-                // Convert BGR or RGB to Grayscale
+                // Convert BGR  to Grayscale
                 cv::cvtColor(processed_image, processed_image, cv::COLOR_BGR2GRAY);
             }
         } else if (processed_image.empty()) {
