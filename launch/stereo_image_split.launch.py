@@ -59,4 +59,4 @@ def generate_launch_description():
         ],
     )
 
-    return LaunchDescription([container])
+    return LaunchDescription(launch_args + [container])
