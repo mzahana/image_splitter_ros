@@ -1,8 +1,28 @@
 from launch import LaunchDescription
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
+    # Declare launch arguments
+    launch_args = [
+        DeclareLaunchArgument(
+            'width', default_value='1280',
+            description='libcamera image width'),
+        DeclareLaunchArgument(
+            'height', default_value='400',
+            description='libcamera image height'),
+        DeclareLaunchArgument(
+            'pixelformat', default_value='XBGR8888',
+            description='libcamera pixel format'),
+        DeclareLaunchArgument(
+            'contrast', default_value='1.0',
+            description='libcamera image contrast'),
+        # Add more arguments as needed
+        
+    ]
+
     container = ComposableNodeContainer(
         name='stereo_image_container',
         namespace='',
@@ -28,11 +48,11 @@ def generate_launch_description():
                 plugin='camera::CameraNode',
                 name='camera',
                 extra_arguments=[{'use_intra_process_comms': True}],
-                parameters=[{'format': 'YUYV'},
-                            {'width': 2560},
-                            {'height': 800},
+                parameters=[{'format': LaunchConfiguration('pixelformat')},
+                            {'width': LaunchConfiguration('width')},
+                            {'height': LaunchConfiguration('height')},
                             {'AeEnable': False},
-                            {'Contrast': 1.5 },
+                            {'Contrast': LaunchConfiguration('contrast') },
                             {'ExposureValue': 0.0},
                 ]
             )
