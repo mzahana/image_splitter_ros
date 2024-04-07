@@ -20,7 +20,7 @@ def generate_launch_description():
             'contrast', default_value='1.0',
             description='libcamera image contrast'),
         DeclareLaunchArgument(
-            'exposure_time', default_value='5',
+            'exposure_time', default_value='0',
             description='libcamera image ExposureTime between 0...13'),
         DeclareLaunchArgument(
             'enable_exposure', default_value='True',
@@ -61,6 +61,7 @@ def generate_launch_description():
                             {'Contrast': LaunchConfiguration('contrast') },
                             {'ExposureValue': 0.0},
                             {'ExposureTime': LaunchConfiguration('exposure_time')},
+                            {'FrameDurationLimits': [16667,16667]}, #60fps
                 ]
             )
         ],
