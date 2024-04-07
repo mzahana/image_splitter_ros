@@ -19,6 +19,12 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'contrast', default_value='1.0',
             description='libcamera image contrast'),
+        DeclareLaunchArgument(
+            'exposure_time', default_value='5',
+            description='libcamera image ExposureTime between 0...13'),
+        DeclareLaunchArgument(
+            'enable_exposure', default_value='True',
+            description='enable/disable auto expousre'),
         # Add more arguments as needed
         
     ]
@@ -51,9 +57,10 @@ def generate_launch_description():
                 parameters=[{'format': LaunchConfiguration('pixelformat')},
                             {'width': LaunchConfiguration('width')},
                             {'height': LaunchConfiguration('height')},
-                            {'AeEnable': False},
+                            {'AeEnable': LaunchConfiguration('enable_exposure')},
                             {'Contrast': LaunchConfiguration('contrast') },
                             {'ExposureValue': 0.0},
+                            {'ExposureTime': LaunchConfiguration('exposure_time')},
                 ]
             )
         ],
