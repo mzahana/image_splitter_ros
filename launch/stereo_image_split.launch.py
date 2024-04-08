@@ -59,9 +59,9 @@ def generate_launch_description():
                             {'height': LaunchConfiguration('height')},
                             {'AeEnable': LaunchConfiguration('enable_exposure')},
                             {'Contrast': LaunchConfiguration('contrast') },
-                            {'ExposureValue': 0.0},
-                            {'ExposureTime': LaunchConfiguration('exposure_time')},
-                            {'FrameDurationLimits': [16667,16667]}, #60fps
+                            #{'ExposureValue': 0.0},
+                            #{'ExposureTime': LaunchConfiguration('exposure_time')},
+                            {'FrameDurationLimits': [33334,33334]}, #30fps
                 ]
             )
         ],
