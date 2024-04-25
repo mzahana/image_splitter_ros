@@ -15,8 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   cv_bridge
   image_transport
-  OpenCV
 )
+find_package(OpenCV REQUIRED)
 
 # Declare a catkin package
 catkin_package(
@@ -33,34 +33,27 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-# Declare a C++ library
-add_library(${PROJECT_NAME}
+# Declare a C++ library if there are multiple source files or commonly reused components
+add_library(${PROJECT_NAME}_lib
   src/stereo_image_splitter.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
+# Add an executable for the node
+add_executable(stereo_image_splitter_node src/stereo_image_splitter_node.cpp)
 
-# Declare a C++ executable
-add_executable(stereo_image_splitter_node
-  src/stereo_image_splitter_node.cpp
-)
-
+# Specify libraries to link a library or executable target against
 target_link_libraries(stereo_image_splitter_node
-  ${PROJECT_NAME}
+  ${PROJECT_NAME}_lib
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
 
-# Install targets
-install(TARGETS ${PROJECT_NAME} stereo_image_splitter_node
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+# Install the executable
+install(TARGETS stereo_image_splitter_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+# Install other directories if necessary
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

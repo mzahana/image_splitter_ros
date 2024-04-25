@@ -15,7 +15,6 @@
   <depend>sensor_msgs</depend>
   <depend>cv_bridge</depend>
   <depend>image_transport</depend>
-  <depend>opencv3</depend> <!-- Depending on your ROS distribution, this may just be 'opencv' -->
 
   <!-- Export tag is not needed unless you are creating a plugin -->
 </package>

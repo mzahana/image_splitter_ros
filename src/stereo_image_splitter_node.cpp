@@ -1,11 +1,13 @@
-#include "rclcpp/rclcpp.hpp"
-#include "stereo_image_splitter.cpp" // Include the splitter implementation
+#include "ros/ros.h"
+#include "stereo_image_splitter.h" // Include the splitter header
 
-int main(int argc, char * argv[])
+int main(int argc, char** argv)
 {
-  rclcpp::init(argc, argv);
-  auto node = std::make_shared<StereoImageSplitter>();
-  rclcpp::spin(node);
-  rclcpp::shutdown();
-  return 0;
+    ros::init(argc, argv, "stereo_image_splitter");
+    ros::NodeHandle nh;
+
+    StereoImageSplitter node(nh); // Assuming your class constructor accepts a NodeHandle
+
+    ros::spin();
+    return 0;
 }
