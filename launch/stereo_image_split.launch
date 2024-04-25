@@ -1,7 +1,4 @@
 <launch>
-    <!-- Declare launch arguments -->
-    <arg name="width" default="1280" />
-    <arg name="height" default="400" />
 
     <!-- Node for stereo image splitter -->
     <node name="stereo_image_splitter" pkg="image_splitter_ros" type="stereo_image_splitter_node" output="screen">
