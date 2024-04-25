@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "stereo_image_splitter.h" // Include the splitter header
+#include "stereo_image_splitter.cpp" // Include the splitter header
 
 int main(int argc, char** argv)
 {

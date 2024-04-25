@@ -9,8 +9,8 @@
 class StereoImageSplitter
 {
 public:
-    StereoImageSplitter()
-    : it_(nh_)
+    explicit StereoImageSplitter(ros::NodeHandle& nh)
+    : nh_(nh), it_(nh_)
     {
         // Initialize parameters
         nh_.param("is_grey", is_grey_, false);
@@ -66,11 +66,3 @@ private:
     image_transport::Publisher right_pub_;
     bool is_grey_;
 };
-
-int main(int argc, char** argv)
-{
-    ros::init(argc, argv, "stereo_image_splitter");
-    StereoImageSplitter node;
-    ros::spin();
-    return 0;
-}
