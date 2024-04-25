@@ -20,7 +20,6 @@ find_package(OpenCV REQUIRED)
 
 # Declare a catkin package
 catkin_package(
-  INCLUDE_DIRS include
   LIBRARIES image_splitter_ros
   CATKIN_DEPENDS roscpp sensor_msgs cv_bridge image_transport
   DEPENDS OpenCV
@@ -28,7 +27,6 @@ catkin_package(
 
 # Include directories
 include_directories(
-  include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
