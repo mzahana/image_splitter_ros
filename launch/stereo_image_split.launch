@@ -1,0 +1,14 @@
+<launch>
+    <!-- Declare launch arguments -->
+    <arg name="width" default="1280" />
+    <arg name="height" default="400" />
+
+    <!-- Node for stereo image splitter -->
+    <node name="stereo_image_splitter" pkg="image_splitter_ros" type="stereo_image_splitter_node" output="screen">
+        <param name="is_grey" value="True" />
+        <remap from="stitched_images" to="/camera/image_raw" />
+        <remap from="left_image" to="/left_image" />
+        <remap from="right_image" to="/right_image" />
+    </node>
+
+</launch>
