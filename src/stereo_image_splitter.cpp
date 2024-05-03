@@ -1,5 +1,3 @@
-  GNU nano 5.4                                                                                                                                                  catkin_ws/src/image_splitter_ros/src/stereo_image_splitter.cpp                                                                                                                                                           // Filename: stereo_image_splitter.cpp
-
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/Image.h>
