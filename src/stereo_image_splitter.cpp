@@ -1,4 +1,4 @@
-// Filename: stereo_image_splitter.cpp
+  GNU nano 5.4                                                                                                                                                  catkin_ws/src/image_splitter_ros/src/stereo_image_splitter.cpp                                                                                                                                                           // Filename: stereo_image_splitter.cpp
 
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
@@ -9,11 +9,11 @@
 class StereoImageSplitter
 {
 public:
-    explicit StereoImageSplitter(ros::NodeHandle& nh)
-    : nh_(nh), it_(nh_)
+    explicit StereoImageSplitter(ros::NodeHandle& nh, ros::NodeHandle& nhp)
+    : nh_(nh), nhp_(nhp), it_(nh_)
     {
         // Initialize parameters
-        nh_.param("is_grey", is_grey_, false);
+        nhp_.param("is_grey", is_grey_, false);
 
         // Set up subscriber and publishers using image_transport
         image_sub_ = it_.subscribe("stitched_images", 1, &StereoImageSplitter::split_and_publish, this);
@@ -32,12 +32,32 @@ private:
             return;
         }
 
-        // Process the image similarly to the ROS 2 version
+        // Check source encoding and convert if necessary
         cv::Mat processed_image;
-        if (cv_ptr->image.channels() > 1 && is_grey_) {
-            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_BGR2GRAY);
-        } else {
-            processed_image = cv_ptr->image;
+        if (msg->encoding == "yuv422_yuy2") {
+            // Convert YUV422 (YUY2) to BGR for processing
+            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_YUV2BGR_YUY2);
+        } else if (msg->encoding == "rgb8") {
+            // Assume the source is BGR if not grayscale and not YUY2. Adjust if your camera uses RGB.
+            // processed_image = cv_ptr->image.clone();
+            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_RGB2BGR);
+        } else if (msg->encoding == "rgba8") {
+            // Assume the source is BGR if not grayscale and not YUY2. Adjust if your camera uses RGB.
+            // processed_image = cv_ptr->image.clone();
+            cv::cvtColor(cv_ptr->image, processed_image, cv::COLOR_RGBA2BGR);
+        } else{
+            processed_image = cv_ptr->image.clone();
+        }
+
+        // Additional check for grayscale conversion
+        if (is_grey_) {
+            if (processed_image.channels() > 1) {
+                // Convert BGR  to Grayscale
+                cv::cvtColor(processed_image, processed_image, cv::COLOR_BGR2GRAY);
+            }
+        } else if (processed_image.empty()) {
+            // For cases where the encoding is not 'yuv422_yuy2' but still color
+            processed_image = cv_ptr->image.clone();
         }
 
         int width = processed_image.cols / 2;
@@ -60,6 +80,7 @@ private:
     }
 
     ros::NodeHandle nh_;
+    ros::NodeHandle nhp_;
     image_transport::ImageTransport it_;
     image_transport::Subscriber image_sub_;
     image_transport::Publisher left_pub_;

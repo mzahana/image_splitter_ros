@@ -4,9 +4,10 @@
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "stereo_image_splitter");
+    ros::NodeHandle nhp("~");
     ros::NodeHandle nh;
 
-    StereoImageSplitter node(nh); // Assuming your class constructor accepts a NodeHandle
+    StereoImageSplitter node(nh, nhp); // Assuming your class constructor accepts a NodeHandle
 
     ros::spin();
     return 0;
