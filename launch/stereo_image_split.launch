@@ -9,7 +9,7 @@
         <param name="is_grey" value="$(arg is_grey)" />
         <remap from="stitched_images" to="$(arg stereo_topic)" />
         <remap from="left_image" to="$(arg cam0_topic)" />
-        <remap from="right_image" to="$(arg cam01_topic)" />
+        <remap from="right_image" to="$(arg cam1_topic)" />
     </node>
 
 </launch>
