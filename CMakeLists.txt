@@ -36,18 +36,23 @@ add_library(${PROJECT_NAME}_lib
   src/stereo_image_splitter.cpp
 )
 
-# Add an executable for the node
+# Add an executable for the stereo image splitter node
 add_executable(stereo_image_splitter_node src/stereo_image_splitter_node.cpp)
-
-# Specify libraries to link a library or executable target against
 target_link_libraries(stereo_image_splitter_node
   ${PROJECT_NAME}_lib
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
 
-# Install the executable
-install(TARGETS stereo_image_splitter_node
+# Add an executable for the rgb2mono node
+add_executable(rgb2mono_node src/rgb2mono.cpp)
+target_link_libraries(rgb2mono_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+
+# Install the executables
+install(TARGETS stereo_image_splitter_node rgb2mono_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
